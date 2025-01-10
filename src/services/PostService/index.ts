@@ -38,12 +38,20 @@ export const getAllPostsForNewsfeed = async (params?: IQueryParam[]) => {
     return data;
   } catch (error: any) {
     if (error.response) {
-      const responseData = error.response.data as IApiResponse<null>;
+      const responseData = error.response.data as IApiResponse<[]>;
+      const statusCode = error.response.status;
 
-      return responseData;
+      console.error(`API Error (${statusCode}):`, responseData);
+
+      return {
+        ...responseData,
+        statusCode,
+      };
     }
 
-    throw new Error(error.message || "Unknown error occurred");
+    throw new Error(
+      error.message || "Something went wrong. Please try again later."
+    );
   }
 };
 

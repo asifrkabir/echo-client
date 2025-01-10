@@ -9,8 +9,8 @@ import {
   togglePostPublish,
   updatePost,
 } from "@/services/PostService";
-import { IQueryParam } from "@/types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { IApiResponse, IPost, IQueryParam } from "@/types";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 
 export const useGetAllPosts = () => {
   return useQuery({
@@ -95,4 +95,25 @@ export const useTogglePostPublish = () => {
       return error;
     },
   });
+};
+
+export const getAllPostsForFeedInfiniteQuery = (
+  params: IQueryParam[] = []
+) => ({
+  queryKey: ["POSTS_FEED", params],
+  queryFn: async ({ pageParam = 1 }) => {
+    const paginationParams = [...params, { name: "page", value: pageParam }];
+    return await getAllPostsForNewsfeed(paginationParams);
+  },
+  getNextPageParam: (lastPage: IApiResponse<IPost[]>) => {
+    if (lastPage.meta!.page < lastPage.meta!.totalPage) {
+      return lastPage.meta!.page + 1;
+    }
+    return undefined;
+  },
+  initialPageParam: 1,
+});
+
+export const useGetAllPostsForFeedInfinite = (params: IQueryParam[]) => {
+  return useInfiniteQuery({ ...getAllPostsForFeedInfiniteQuery(params) });
 };

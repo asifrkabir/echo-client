@@ -1,9 +1,10 @@
 "use client";
 
-import { useGetAllPostsForNewsfeed } from "@/hooks/post.hook";
+import { useGetAllPostsForFeedInfinite } from "@/hooks/post.hook";
 import { IQueryParam } from "@/types";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import InfiniteScrollContainer from "../Shared/InfiniteScrollContainer";
 import { Button } from "../ui/button";
 import { AddPostModal } from "./AddPost/AddPostModal";
 import PostCard from "./PostCard/PostCard";
@@ -20,9 +21,8 @@ const PostsContainer = ({ customParams }: IProps) => {
 
   const [params] = useState<IQueryParam[]>(() => {
     const defaultParams: IQueryParam[] = [
-      { name: "limit", value: 16 },
-      { name: "page", value: 1 },
-      { name: "sort", value: "-upvotes" },
+      { name: "limit", value: 4 },
+      // { name: "sort", value: "-upvotes" },
     ];
 
     if (categoryId) {
@@ -36,9 +36,16 @@ const PostsContainer = ({ customParams }: IProps) => {
     return customParams ? [...defaultParams, ...customParams] : defaultParams;
   });
 
-  const { data, isLoading, isError } = useGetAllPostsForNewsfeed(params);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useGetAllPostsForFeedInfinite(params);
 
-  const posts = data?.data || [];
+  const posts = data?.pages.flatMap((page) => page.data || []) || [];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
@@ -92,11 +99,24 @@ const PostsContainer = ({ customParams }: IProps) => {
           </div>
         ) : (
           <>
-            <div className="grid gap-4 grid-cols-1">
+            {/* Infinite Scroll Container */}
+            <InfiniteScrollContainer
+              className="grid gap-4 grid-cols-1"
+              onBottomReached={() => hasNextPage && fetchNextPage()}
+            >
               {posts.map((post) => (
                 <PostCard key={post._id} post={post} />
               ))}
-            </div>
+            </InfiniteScrollContainer>
+
+            {/* Next Page Loading Skeleton */}
+            {isFetchingNextPage && (
+              <div className="grid gap-4 grid-cols-1">
+                {Array.from({ length: 3 }).map((_, idx) => (
+                  <PostCardLoadingSkeleton key={idx} />
+                ))}
+              </div>
+            )}
           </>
         )}
       </div>

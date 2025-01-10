@@ -73,6 +73,7 @@ export function AddPostForm({ closeModal }: IProps) {
           toast.success("Post created successfully");
 
           queryClient.invalidateQueries({ queryKey: ["ALL_POSTS_NEWSFEED"] });
+          queryClient.invalidateQueries({ queryKey: ["POSTS_FEED"] });
 
           closeModal();
         } else {
