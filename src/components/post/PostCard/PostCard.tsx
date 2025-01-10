@@ -28,9 +28,9 @@ import PaymentModal from "../../payment/PaymentModal";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { Separator } from "../../ui/separator";
+import { DeletePostModal } from "../DeletePost/DeletePostModal";
 import UpdatePostModal from "../UpdatePost/UpdatePostModal";
 import styles from "./PostCard.module.css";
-import { DeletePostModal } from "../DeletePost/DeletePostModal";
 
 interface IProps {
   post: IPost;
@@ -96,7 +96,7 @@ const PostCard = ({ post, loggedInUser }: IProps) => {
     <Card className="relative flex flex-col rounded-lg border w-full h-auto transition-shadow hover:shadow-md">
       {/* Header - Author Info */}
       <CardHeader className="flex flex-row justify-between items-center p-4">
-        <Link href={`/user-dashboard/profile/${post.author._id!.toString()}`}>
+        <Link href={`/profile/${post.author._id!.toString()}`}>
           <div className="flex flex-row items-center">
             {post.author?.profilePicture ? (
               <Image
@@ -131,7 +131,7 @@ const PostCard = ({ post, loggedInUser }: IProps) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Badge className="absolute -top-2 -right-2 bg-[#059669] text-white flex items-center">
+                <Badge className="absolute -top-2 -right-2 flex items-center p-1">
                   <span className="size-4">$</span>
                 </Badge>
               </TooltipTrigger>
@@ -184,28 +184,16 @@ const PostCard = ({ post, loggedInUser }: IProps) => {
             }}
           />
           {post.isPurchased && post.content.length > maxContentLength && (
-            <Link href={`/user-dashboard/news-feed/${post._id}`}>
-              <span className="text-emerald-600 cursor-pointer hover:underline">
+            <Link href={`/news-feed/${post._id}`}>
+              <span className="cursor-pointer hover:underline">
                 ...Read more
               </span>
             </Link>
           )}
           {!post.isPurchased && post.content.length > maxPreviewLength && (
-            <span className="text-emerald-600 cursor-pointer">
-              ...Purchase to read more
-            </span>
+            <span className="cursor-pointer">...Purchase to read more</span>
           )}
         </div>
-
-        {post.category && (
-          <Badge
-            className={`${
-              post.category === "story" ? "bg-blue-500" : "bg-emerald-500"
-            } text-md`}
-          >
-            {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
-          </Badge>
-        )}
       </CardContent>
 
       {/* Footer - Action Buttons */}
@@ -252,9 +240,9 @@ const PostCard = ({ post, loggedInUser }: IProps) => {
               </button>
             </div>
             <div>
-              <Link href={`/user-dashboard/news-feed/${post._id}`}>
-                <Button size={"sm"}>
-                  <Eye className="mr-1" /> View Details
+              <Link href={`/news-feed/${post._id}`}>
+                <Button size="sm">
+                  <Eye className="size-5" />
                 </Button>
               </Link>
             </div>

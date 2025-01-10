@@ -16,7 +16,6 @@ interface IProps {
 
 const PostsContainer = ({ customParams }: IProps) => {
   const searchParams = useSearchParams();
-  const categoryId = searchParams.get("category");
   const searchTerm = searchParams.get("search");
 
   const [params] = useState<IQueryParam[]>(() => {
@@ -24,10 +23,6 @@ const PostsContainer = ({ customParams }: IProps) => {
       { name: "limit", value: 4 },
       // { name: "sort", value: "-upvotes" },
     ];
-
-    if (categoryId) {
-      defaultParams.push({ name: "category", value: categoryId });
-    }
 
     if (searchTerm) {
       defaultParams.push({ name: "searchTerm", value: searchTerm });

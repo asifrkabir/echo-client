@@ -34,7 +34,7 @@ const PaymentModal = ({ post }: IProps) => {
       <DialogTrigger asChild>
         <Button
           size={"sm"}
-          className="px-4 py-2 rounded-lg bg-emerald-600 gap-x-2 mx-auto"
+          className="px-4 py-2 rounded-lg gap-x-2 mx-auto"
         >
           <LockOpen /> Purchase
         </Button>

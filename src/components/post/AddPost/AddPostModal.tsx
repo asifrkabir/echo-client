@@ -12,6 +12,7 @@ import {
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useState } from "react";
 import { AddPostForm } from "./AddPostForm";
+import { CirclePlus } from "lucide-react";
 
 export function AddPostModal() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,9 @@ export function AddPostModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full">Add Post</Button>
+        <Button className="w-full">
+          Add Post <CirclePlus className="size-5 ml-2" />
+        </Button>
       </DialogTrigger>
       <DialogContent
         className={"lg:max-w-screen-lg overflow-y-scroll max-h-screen"}

@@ -7,19 +7,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useUser } from "@/context/user.provider";
-import { IApiResponse, IUser } from "@/types";
-import { CircleUser, Loader2 } from "lucide-react";
-import Image from "next/image";
-import UpdateUserModal from "./UpdateUser/UpdateUserModal";
-import LoadingSpinner from "../ui/LoadingSpinner/LoadingSpinner";
 import {
   useCheckIfUserFollowsAnotherUser,
   useFollow,
   useUnfollow,
 } from "@/hooks/follow.hook";
-import httpStatus from "http-status";
-import { toast } from "sonner";
+import { IApiResponse, IUser } from "@/types";
 import { useQueryClient } from "@tanstack/react-query";
+import httpStatus from "http-status";
+import { CircleUser, Loader2, UserMinus, UserPlus } from "lucide-react";
+import Image from "next/image";
+import { toast } from "sonner";
+import LoadingSpinner from "../ui/LoadingSpinner/LoadingSpinner";
+import UpdateUserModal from "./UpdateUser/UpdateUserModal";
 
 interface IProps {
   user: IUser;
@@ -122,7 +122,9 @@ export function UserProfileCard({ user }: IProps) {
               {isUnfollowPending ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                "Unfollow"
+                <>
+                  Unfollow <UserMinus className="ml-2 size-4" />
+                </>
               )}
             </Button>
           ) : (
@@ -134,7 +136,9 @@ export function UserProfileCard({ user }: IProps) {
               {isFollowPending ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                "Follow"
+                <>
+                  Follow <UserPlus className="ml-2 size-4" />
+                </>
               )}
             </Button>
           )

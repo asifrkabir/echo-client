@@ -18,9 +18,9 @@ export default function MainNavbar() {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
+            <Link href="/news-feed" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Home
+                Newsfeed
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

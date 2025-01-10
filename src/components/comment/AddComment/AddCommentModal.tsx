@@ -27,7 +27,7 @@ export function AddCommentModal({ postId }: IProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-[#FCBE4F] hover:bg-[#e6a93c] transition text-black">
+        <Button>
           Add Comment
         </Button>
       </DialogTrigger>

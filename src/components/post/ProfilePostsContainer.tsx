@@ -1,76 +1,116 @@
 "use client";
 
-import { useGetAllPostsForNewsfeed } from "@/hooks/post.hook";
+import { useGetAllPostsForFeedInfinite } from "@/hooks/post.hook";
 import { IQueryParam, IUser } from "@/types";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import InfiniteScrollContainer from "../Shared/InfiniteScrollContainer";
+import { Button } from "../ui/button";
 import { AddPostModal } from "./AddPost/AddPostModal";
 import PostCard from "./PostCard/PostCard";
 import PostCardLoadingSkeleton from "./PostCardLoadingSkeleton";
-import SearchFilterNewsfeed from "./SearchFilterNewsfeed";
 
 interface IProps {
   user: IUser;
+  customParams?: IQueryParam[];
 }
 
-const ProfilePostsContainer = ({ user }: IProps) => {
-  const [params, setParams] = useState<IQueryParam[]>([
-    {
-      name: "author",
-      value: user?._id ? user?._id!.toString() : user?.userId!.toString(),
-    },
-    { name: "sort", value: "-upvotes" },
-  ]);
+const ProfilePostsContainer = ({ user, customParams }: IProps) => {
+  const searchParams = useSearchParams();
+  const searchTerm = searchParams.get("search");
+
+  const [params] = useState<IQueryParam[]>(() => {
+    const defaultParams: IQueryParam[] = [
+      {
+        name: "author",
+        value: user?._id ? user?._id!.toString() : user?.userId!.toString(),
+      },
+      { name: "limit", value: 4 },
+      // { name: "sort", value: "-upvotes" },
+    ];
+
+    if (searchTerm) {
+      defaultParams.push({ name: "searchTerm", value: searchTerm });
+    }
+
+    return customParams ? [...defaultParams, ...customParams] : defaultParams;
+  });
 
   const {
-    data: postData,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     isLoading,
-    isFetching,
-    refetch,
-  } = useGetAllPostsForNewsfeed(params);
+    isError,
+  } = useGetAllPostsForFeedInfinite(params);
 
-  useEffect(() => {
-    refetch();
-  }, [params, refetch]);
-
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 gap-8 p-4 items-start w-full">
-        {Array.from({ length: 4 }).map((_, idx) => (
-          <PostCardLoadingSkeleton key={idx} />
-        ))}
-      </div>
-    );
-  }
+  const posts = data?.pages.flatMap((page) => page.data || []) || [];
 
   return (
-    <div className="w-full">
-      <SearchFilterNewsfeed setParams={setParams} />
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      {/* Left Sidebar */}
+      <div className="lg:col-span-1 h-screen sticky lg:top-24">
+        <div className="flex flex-col space-y-4 h-full overflow-y-auto hide-scrollbar">
+          <Button>Left Sidebar Item 1</Button>
+          <Button>Left Sidebar Item 2</Button>
+          <Button>Left Sidebar Item 3</Button>
+        </div>
+      </div>
 
-      {isFetching && (
-        <div className="grid grid-cols-1 gap-8 p-4 items-start w-full">
-          {Array.from({ length: 4 }).map((_, idx) => (
-            <PostCardLoadingSkeleton key={idx} />
-          ))}
-        </div>
-      )}
+      {/* Posts */}
+      <div className="lg:col-span-2 space-y-4">
+        <AddPostModal />
 
-      {postData?.data && postData?.data?.length > 0 ? (
-        <div className="grid grid-cols-1 gap-8 p-4 w-full items-start">
-          {postData?.data.map((post) => (
-            <PostCard key={post._id} post={post} loggedInUser={user} />
-          ))}
+        {isLoading ? (
+          <div className="grid gap-4 grid-cols-1">
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <PostCardLoadingSkeleton key={idx} />
+            ))}
+          </div>
+        ) : isError ? (
+          <p>Something went wrong while fetching posts.</p>
+        ) : posts.length === 0 ? (
+          <div className="flex flex-col items-center gap-1 text-center my-40">
+            <h3 className="text-2xl font-bold tracking-tight">
+              No posts are available right now
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Please check back later.
+            </p>
+          </div>
+        ) : (
+          <>
+            {/* Infinite Scroll Container */}
+            <InfiniteScrollContainer
+              className="grid gap-4 grid-cols-1"
+              onBottomReached={() => hasNextPage && fetchNextPage()}
+            >
+              {posts.map((post) => (
+                <PostCard key={post._id} post={post} />
+              ))}
+            </InfiniteScrollContainer>
+
+            {/* Next Page Loading Skeleton */}
+            {isFetchingNextPage && (
+              <div className="grid gap-4 grid-cols-1">
+                {Array.from({ length: 3 }).map((_, idx) => (
+                  <PostCardLoadingSkeleton key={idx} />
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Right Sidebar */}
+      <div className="lg:col-span-1 h-screen sticky lg:top-24">
+        <div className="flex flex-col space-y-4 h-full overflow-y-auto hide-scrollbar">
+          <Button>Right Sidebar Item 1</Button>
+          <Button>Right Sidebar Item 2</Button>
+          <Button>Right Sidebar Item 3</Button>
         </div>
-      ) : (
-        <div className="flex flex-col items-center gap-1 text-center my-40">
-          <h3 className="text-2xl font-bold tracking-tight">
-            No posts are available right now
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            You can start engaging as soon as posts are added.
-          </p>
-          <AddPostModal />
-        </div>
-      )}
+      </div>
     </div>
   );
 };

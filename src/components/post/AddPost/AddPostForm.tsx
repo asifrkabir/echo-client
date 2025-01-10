@@ -5,7 +5,6 @@ import AppCheckbox from "@/components/form/AppCheckbox";
 import AppForm from "@/components/form/AppForm";
 import AppInput from "@/components/form/AppInput";
 import AppRichTextEditor from "@/components/form/AppRichTextEditor";
-import AppSelect from "@/components/form/AppSelect";
 import { Button } from "@/components/ui/button";
 import { useCreatePost } from "@/hooks/post.hook";
 import { addPostValidationSchema } from "@/schemas/post.schema";
@@ -98,17 +97,6 @@ export function AddPostForm({ closeModal }: IProps) {
             label="Title"
             type="text"
             placeholder="Enter post title"
-            required
-          />
-
-          <AppSelect
-            name="category"
-            label="Category"
-            placeholder="Select post category"
-            options={[
-              { label: "Tip", value: "tip" },
-              { label: "Story", value: "story" },
-            ]}
             required
           />
 

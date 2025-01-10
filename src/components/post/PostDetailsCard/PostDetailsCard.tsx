@@ -123,7 +123,7 @@ const PostDetailsCard = ({ post }: IProps) => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Badge className="absolute -top-2 -right-2 bg-[#059669] text-white flex items-center">
+                  <Badge className="absolute -top-2 -right-2 flex items-center p-1">
                     <span className="size-4">$</span>
                   </Badge>
                 </TooltipTrigger>
@@ -165,25 +165,12 @@ const PostDetailsCard = ({ post }: IProps) => {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
-
-          {post.category && (
-            <Badge
-              className={`${
-                post.category === "story" ? "bg-blue-500" : "bg-emerald-500"
-              } text-md`}
-            >
-              {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
-            </Badge>
-          )}
         </CardContent>
 
         {/* Footer - Action Buttons */}
         <CardFooter className="flex items-center justify-center p-4 border-t">
           {!post.isPurchased ? (
-            <Button
-              size={"sm"}
-              className="px-4 py-2 rounded-lg ml-auto bg-emerald-600"
-            >
+            <Button size={"sm"} className="px-4 py-2 rounded-lg ml-auto">
               Purchase
             </Button>
           ) : (

@@ -31,7 +31,7 @@ export default function MainMobileNavbar() {
             <Image src={logo} alt="logo" width={60} height={60} priority />
           </Link>
           <nav className="flex flex-col gap-3 lg:gap-4 mt-6">
-            <Link href="/">Home</Link>
+            <Link href="/news-feed">Newsfeed</Link>
           </nav>
         </SheetContent>
       </Sheet>
