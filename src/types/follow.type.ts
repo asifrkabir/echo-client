@@ -9,3 +9,9 @@ export interface IFollow {
 export interface ICreateFollow {
   following: string;
 }
+
+export interface IPeopleYouMayKnow {
+  _id: string;
+  name: string;
+  profilePicture: string;
+}

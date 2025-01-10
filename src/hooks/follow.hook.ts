@@ -3,6 +3,7 @@ import {
   checkIfUserFollowsAnotherUser,
   follow,
   getAllFollows,
+  getPeopleYouMayKnow,
   unfollow,
 } from "@/services/FollowService";
 import { IFollow, IQueryParam } from "@/types";
@@ -48,5 +49,16 @@ export const useGetAllFollows = (params?: IQueryParam[]) => {
   return useQuery({
     queryKey: ["GET_ALL_FOLLOWS"],
     queryFn: async () => await getAllFollows(params),
+  });
+};
+
+export const getPeopleYouMayKnowQuery = (params?: IQueryParam[]) => ({
+  queryKey: ["PEOPLE_YOU_MAY_KNOW", params],
+  queryFn: async () => await getPeopleYouMayKnow(params),
+});
+
+export const useGetPeopleYouMayKnow = (params?: IQueryParam[]) => {
+  return useQuery({
+    ...getPeopleYouMayKnowQuery(params),
   });
 };
