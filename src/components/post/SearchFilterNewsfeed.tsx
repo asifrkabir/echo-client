@@ -62,7 +62,7 @@ const SearchFilterNewsfeed = ({ setParams }: SearchFilterNewsfeedProps) => {
       updateParams("sort", sort);
     }
   }, [sort, updateParams]);
-  
+
   useEffect(() => {
     if (isFree !== undefined && isFree !== "on") {
       if (isFree) {
@@ -74,7 +74,7 @@ const SearchFilterNewsfeed = ({ setParams }: SearchFilterNewsfeedProps) => {
   }, [isFree, setParams, updateParams]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+    <div className="space-y-4">
       <Input
         type="text"
         {...register("searchTerm")}

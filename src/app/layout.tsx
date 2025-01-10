@@ -1,14 +1,17 @@
+import { Providers } from "@/lib/Providers";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from "@/lib/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Pawfect",
+  title: {
+    template: "%s | Echo",
+    default: "Echo",
+  },
   description:
-    "Your ultimate platform for pet care tips, stories, and nutrition advice. Explore and share knowledge to keep your pets happy and healthy.",
+    "Echo is a modern social media platform that amplifies your voice, connects you with like-minded individuals, and fosters meaningful conversations in a vibrant community.",
 };
 
 export default function RootLayout({

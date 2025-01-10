@@ -10,8 +10,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { AddPostForm } from "./AddPostForm";
 import { useState } from "react";
+import { AddPostForm } from "./AddPostForm";
 
 export function AddPostModal() {
   const [open, setOpen] = useState(false);
@@ -23,9 +23,7 @@ export function AddPostModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-[#FCBE4F] hover:bg-[#e6a93c] transition text-black">
-          Add Post
-        </Button>
+        <Button className="w-full">Add Post</Button>
       </DialogTrigger>
       <DialogContent
         className={"lg:max-w-screen-lg overflow-y-scroll max-h-screen"}

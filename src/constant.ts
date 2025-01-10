@@ -4,6 +4,7 @@ export const protectedRoutes = [
   "/admin-dashboard",
   "/admin-dashboard/:page*",
   "/change-password",
+  "/news-feed",
   "/login",
   "/register",
   "/forgot-password",

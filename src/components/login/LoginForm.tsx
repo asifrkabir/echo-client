@@ -28,7 +28,7 @@ import AppInput from "../form/AppInput";
 export function LoginForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { setIsLoading: setUserLoading } = useUser();
+  const { user, setIsLoading: setUserLoading } = useUser();
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const redirect = searchParams.get("redirect");
@@ -67,14 +67,20 @@ export function LoginForm() {
   };
 
   useEffect(() => {
-    if (!isPending && loginSuccess) {
-      if (redirect) {
-        router.push(redirect);
-      } else {
-        router.push("/");
+    if (!isPending && loginSuccess && user) {
+      const role = user?.role;
+
+      switch (role) {
+        case "admin":
+          router.push("/admin-dashboard");
+          break;
+
+        default:
+          router.push("/news-feed");
+          break;
       }
     }
-  }, [isPending, loginSuccess, redirect, router]);
+  }, [isPending, loginSuccess, redirect, router, user]);
 
   return (
     <Card className="mx-auto max-w-lg w-full m-4">
@@ -112,11 +118,7 @@ export function LoginForm() {
               </Link>
             </div>
 
-            <Button
-              type="submit"
-              className="w-full bg-primary"
-              disabled={isPending}
-            >
+            <Button type="submit" className="w-full" disabled={isPending}>
               {isPending ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (

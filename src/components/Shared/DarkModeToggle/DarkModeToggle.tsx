@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 export function DarkModeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -21,7 +21,7 @@ export function DarkModeToggle() {
   };
 
   return (
-    <Button onClick={toggleTheme} variant="outline" size="icon">
+    <Button onClick={toggleTheme} size="icon" className="bg-transparent">
       {/* Sun Icon for light theme */}
       <Sun
         className={`h-[1.2rem] w-[1.2rem] transition-transform ${

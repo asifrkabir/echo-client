@@ -12,8 +12,8 @@ const authRoutes = [
 type Role = keyof typeof roleBasedRoutes;
 
 const roleBasedRoutes = {
-  user: [/^\/user/, "/change-password"],
-  admin: [/^\/admin/, "/change-password"],
+  user: [/^\/user/, "/change-password", "/news-feed"],
+  admin: [/^\/admin/, "/change-password", "/news-feed"],
 };
 
 export async function middleware(request: NextRequest) {
@@ -25,9 +25,7 @@ export async function middleware(request: NextRequest) {
     if (authRoutes.includes(pathname)) {
       return NextResponse.next();
     } else {
-      return NextResponse.redirect(
-        new URL(`/login?redirect=${pathname}`, request.url)
-      );
+      return NextResponse.redirect(new URL(`/login`, request.url));
     }
   }
 
@@ -50,6 +48,7 @@ export const config = {
     "/admin-dashboard",
     "/admin-dashboard/:page*",
     "/change-password",
+    "/news-feed",
     "/login",
     "/register",
     "/forgot-password",

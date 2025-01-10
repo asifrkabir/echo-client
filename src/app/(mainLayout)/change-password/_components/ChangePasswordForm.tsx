@@ -113,7 +113,7 @@ export function ChangePasswordForm() {
 
               <Button
                 type="submit"
-                className="w-full bg-primary"
+                className="w-full"
                 disabled={isPending}
               >
                 {isPending ? (

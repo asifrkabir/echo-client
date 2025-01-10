@@ -21,7 +21,7 @@ export const useGetAllPosts = () => {
 
 export const useGetAllPostsForNewsfeed = (params?: IQueryParam[]) => {
   return useQuery({
-    queryKey: ["ALL_POSTS_NEWSFEED"],
+    queryKey: ["ALL_POSTS_NEWSFEED", params],
     queryFn: async () => await getAllPostsForNewsfeed(params),
   });
 };
