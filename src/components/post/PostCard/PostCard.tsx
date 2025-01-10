@@ -241,7 +241,7 @@ const PostCard = ({ post, loggedInUser }: IProps) => {
             </div>
             <div>
               <Link href={`/news-feed/${post._id}`}>
-                <Button size="sm">
+                <Button size="sm" variant="outline">
                   <Eye className="size-5" />
                 </Button>
               </Link>

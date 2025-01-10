@@ -1,4 +1,5 @@
 import FollowingPostsContainer from "@/components/post/FollowingPostsContainer";
+import { Suspense } from "react";
 
 const FollowingNewsFeedPage = () => {
   return (
@@ -7,7 +8,9 @@ const FollowingNewsFeedPage = () => {
         <h1 className="text-lg font-semibold md:text-2xl">People You Follow</h1>
       </div>
       <div className="h-full flex-1 flex-col space-y-2">
-        <FollowingPostsContainer />
+        <Suspense>
+          <FollowingPostsContainer />
+        </Suspense>
       </div>
     </main>
   );
