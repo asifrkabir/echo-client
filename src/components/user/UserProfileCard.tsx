@@ -93,7 +93,7 @@ export function UserProfileCard({ user }: IProps) {
               alt={user.name || "User Profile"}
               width={80}
               height={80}
-              className="rounded-full object-cover border-2 border-yellow-500"
+              className="rounded-full object-cover border-2 border-violet-500"
             />
           ) : (
             <CircleUser className="w-24 h-24 text-gray-400" />

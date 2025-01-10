@@ -4,8 +4,9 @@ import { useGetAllPostsForFeedInfinite } from "@/hooks/post.hook";
 import { IQueryParam } from "@/types";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import NewsFeedLeftSidebar from "../NewsFeedSidebar/NewsFeedLeftSidebar";
+import NewsFeedRightSidebar from "../NewsFeedSidebar/NewsFeedRightSidebar";
 import InfiniteScrollContainer from "../Shared/InfiniteScrollContainer";
-import { Button } from "../ui/button";
 import { AddPostModal } from "./AddPost/AddPostModal";
 import PostCard from "./PostCard/PostCard";
 import PostCardLoadingSkeleton from "./PostCardLoadingSkeleton";
@@ -46,29 +47,7 @@ const PostsContainer = ({ customParams }: IProps) => {
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
       {/* Left Sidebar */}
       <div className="lg:col-span-1 h-screen sticky lg:top-24">
-        <div className="flex flex-col space-y-4 h-full overflow-y-auto hide-scrollbar">
-          <Button>Left Sidebar Item 1</Button>
-          <Button>Left Sidebar Item 2</Button>
-          <Button>Left Sidebar Item 3</Button>
-          <Button>Left Sidebar Item 1</Button>
-          <Button>Left Sidebar Item 2</Button>
-          <Button>Left Sidebar Item 3</Button>
-          <Button>Left Sidebar Item 1</Button>
-          <Button>Left Sidebar Item 2</Button>
-          <Button>Left Sidebar Item 3</Button>
-          <Button>Left Sidebar Item 1</Button>
-          <Button>Left Sidebar Item 2</Button>
-          <Button>Left Sidebar Item 3</Button>
-          <Button>Left Sidebar Item 1</Button>
-          <Button>Left Sidebar Item 2</Button>
-          <Button>Left Sidebar Item 3</Button>
-          <Button>Left Sidebar Item 1</Button>
-          <Button>Left Sidebar Item 2</Button>
-          <Button>Left Sidebar Item 3</Button>
-          <Button>Left Sidebar Item 1</Button>
-          <Button>Left Sidebar Item 2</Button>
-          <Button>Left Sidebar Item 3</Button>
-        </div>
+        <NewsFeedLeftSidebar />
       </div>
 
       {/* Posts */}
@@ -118,32 +97,7 @@ const PostsContainer = ({ customParams }: IProps) => {
 
       {/* Right Sidebar */}
       <div className="lg:col-span-1 h-screen sticky lg:top-24">
-        <div className="flex flex-col space-y-4 h-full overflow-y-auto hide-scrollbar">
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-          <Button>Right Sidebar Item 1</Button>
-          <Button>Right Sidebar Item 2</Button>
-          <Button>Right Sidebar Item 3</Button>
-        </div>
+        <NewsFeedRightSidebar />
       </div>
     </div>
   );

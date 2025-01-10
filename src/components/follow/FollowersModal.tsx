@@ -59,14 +59,14 @@ const FollowerModal = ({ loggedInUserId }: IProps) => {
                     alt={item.follower.name || "Follower Profile"}
                     width={40}
                     height={40}
-                    className="rounded-full object-cover border-2 border-yellow-500 mr-3"
+                    className="rounded-full object-cover border-2 border-violet-500 mr-3"
                   />
                 ) : (
                   <CircleUser className="w-10 h-10 text-gray-400 mr-3" />
                 )}
                 <Link
-                  href={`/user-dashboard/profile/${item.follower._id}`}
-                  className="text-blue-500"
+                  href={`/profile/${item.follower._id}`}
+                  className="text-violet-500"
                 >
                   {item.follower.name || "Unknown User"}
                 </Link>

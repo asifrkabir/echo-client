@@ -1,15 +1,16 @@
 "use client";
 
-import FollowersModal from "@/components/follow/FollowersModal";
-import FollowingModal from "@/components/follow/FollowingModal";
-import { AddPostModal } from "@/components/post/AddPost/AddPostModal";
 import ProfilePostsContainer from "@/components/post/ProfilePostsContainer";
+import { Button } from "@/components/ui/button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner/LoadingSpinner";
 import { UserProfileCard } from "@/components/user/UserProfileCard";
 import { useUser } from "@/context/user.provider";
 import { useGetUserById } from "@/hooks/user.hook";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const MyProfilePage = () => {
+  const router = useRouter();
   const { user: loggedInUser, isLoading: isLoggedInUserLoading } = useUser();
   const {
     data: userData,
@@ -17,13 +18,17 @@ const MyProfilePage = () => {
     isError: isUserError,
   } = useGetUserById(loggedInUser?.userId as string);
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   if (isLoggedInUserLoading || !loggedInUser || isUserLoading) {
     return <LoadingSpinner />;
   }
 
   if (isUserError || !userData?.data) {
     return (
-      <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
+      <div className="flex flex-1 items-center justify-center rounded-lg">
         <div className="flex flex-col items-center gap-1 text-center">
           <h3 className="text-2xl font-bold tracking-tight">No user found</h3>
         </div>
@@ -32,21 +37,22 @@ const MyProfilePage = () => {
   }
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-lg font-semibold md:text-2xl">My Profile</h1>
-        <AddPostModal />
+    <main className="flex flex-1 flex-col gap-4">
+      <div>
+        <Button onClick={handleGoBack} size="sm">
+          <ArrowLeft className="mr-2" /> Go Back
+        </Button>
       </div>
-      <div className="flex flex-col flex-1 justify-center rounded-lg border border-dashed shadow-sm gap-4">
+      <div className="flex flex-col flex-1 justify-center rounded-lg">
         <UserProfileCard user={userData.data} />
 
         <div className="grid grid-cols-2 gap-4 p-4">
-          {loggedInUser.userId && (
+          {/* {loggedInUser.userId && (
             <FollowersModal loggedInUserId={loggedInUser.userId} />
           )}
           {loggedInUser.userId && (
             <FollowingModal loggedInUserId={loggedInUser.userId} />
-          )}
+          )} */}
         </div>
 
         <ProfilePostsContainer user={loggedInUser} />
