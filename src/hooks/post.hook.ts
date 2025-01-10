@@ -117,3 +117,28 @@ export const getAllPostsForFeedInfiniteQuery = (
 export const useGetAllPostsForFeedInfinite = (params: IQueryParam[]) => {
   return useInfiniteQuery({ ...getAllPostsForFeedInfiniteQuery(params) });
 };
+
+export const useGetAllPostsForFollowingNewsfeedInfiniteQuery = (
+  params: IQueryParam[] = []
+) => ({
+  queryKey: ["POSTS_FEED", params],
+  queryFn: async ({ pageParam = 1 }) => {
+    const paginationParams = [...params, { name: "page", value: pageParam }];
+    return await getAllPostsForFollowingNewsfeed(paginationParams);
+  },
+  getNextPageParam: (lastPage: IApiResponse<IPost[]>) => {
+    if (lastPage.meta!.page < lastPage.meta!.totalPage) {
+      return lastPage.meta!.page + 1;
+    }
+    return undefined;
+  },
+  initialPageParam: 1,
+});
+
+export const useGetAllPostsForFollowingNewsfeedInfinite = (
+  params: IQueryParam[]
+) => {
+  return useInfiniteQuery({
+    ...useGetAllPostsForFollowingNewsfeedInfiniteQuery(params),
+  });
+};
