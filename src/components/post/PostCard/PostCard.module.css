@@ -1,0 +1,29 @@
+.richText h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.richText h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.richText h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.richText ul {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+}
+
+.richText ol {
+    list-style-type: decimal;
+    padding-left: 1.25rem;
+}
+
+.richText a {
+    color: #3182ce;
+    text-decoration: underline;
+}
