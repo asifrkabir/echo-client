@@ -1,4 +1,4 @@
-import { DarkModeToggle } from "@/components/ui/DarkModeToggle/DarkModeToggle";
+import { DarkModeToggle } from "@/components/Shared/DarkModeToggle/DarkModeToggle";
 import DashboardMobileDrawer from "@/components/ui/Dashboard/DashboardMobileDrawer/DashboardMobileDrawer";
 import { ISidebarItem } from "@/types";
 import NavbarUser from "../../NavbarUser/NavbarUser";

@@ -1,5 +1,6 @@
 "use client";
 
+import { DarkModeToggle } from "@/components/Shared/DarkModeToggle/DarkModeToggle";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -9,14 +10,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useUser } from "@/context/user.provider";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../assets/images/logo.png";
-import { DarkModeToggle } from "../DarkModeToggle/DarkModeToggle";
 import NavbarUser from "../NavbarUser/NavbarUser";
-import { useUser } from "@/context/user.provider";
 
 const CommonNavbar = () => {
   const { user } = useUser();
