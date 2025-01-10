@@ -25,7 +25,7 @@ const CommonNavbar = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-white dark:border-gray-800 dark:bg-black">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2" prefetch={false}>
-          <Image src={logo} alt="logo" width={40} height={40} priority />
+          <Image src={logo} alt="logo" width={80} height={80} priority />
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           <Link

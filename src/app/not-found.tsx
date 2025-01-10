@@ -18,7 +18,7 @@ const NotFoundPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center">
-      <Image src={logo} alt="Cat's Paw" width={100} height={100} />
+      <Image src={logo} alt="Cat's Paw" width={150} height={150} />
       <h1 className="text-6xl font-bold mt-4">404</h1>
       <p className="mt-4 text-xl">
         Oops! This page is as elusive as a cat on a hot tin roof.

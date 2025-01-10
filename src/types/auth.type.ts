@@ -10,3 +10,20 @@ export interface IRegisterResponse {
   refreshToken: string;
   user: IUser;
 }
+
+export interface IForgotPassword {
+  email: string;
+}
+
+export interface IResetPassword {
+  token: string;
+  payload: {
+    id: string;
+    newPassword: string;
+  };
+}
+
+export interface IChangePassword {
+  oldPassword: string;
+  newPassword: string;
+}

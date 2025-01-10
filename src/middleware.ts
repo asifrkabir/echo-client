@@ -1,14 +1,19 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { getCurrentUser } from "./services/AuthService";
 
-const authRoutes = ["/login", "/register"];
+const authRoutes = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+];
 
 type Role = keyof typeof roleBasedRoutes;
 
 const roleBasedRoutes = {
-  user: [/^\/user/],
-  admin: [/^\/admin/],
+  user: [/^\/user/, "/change-password"],
+  admin: [/^\/admin/, "/change-password"],
 };
 
 export async function middleware(request: NextRequest) {
@@ -44,7 +49,10 @@ export const config = {
     "/user-dashboard/:page*",
     "/admin-dashboard",
     "/admin-dashboard/:page*",
+    "/change-password",
     "/login",
     "/register",
+    "/forgot-password",
+    "/reset-password",
   ],
 };

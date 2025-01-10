@@ -17,13 +17,13 @@ import { IApiResponse } from "@/types";
 import { ILoginResponse } from "@/types/auth.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import httpStatus from "http-status";
+import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import AppForm from "../form/AppForm";
 import AppInput from "../form/AppInput";
-import LoadingSpinner from "../ui/LoadingSpinner/LoadingSpinner";
 
 export function LoginForm() {
   const searchParams = useSearchParams();
@@ -57,6 +57,15 @@ export function LoginForm() {
     });
   };
 
+  const handleDemoLogin = (role: "user" | "admin") => {
+    const credentials =
+      role === "admin"
+        ? { email: "guest.admin@demo.com", password: "n3n4f098v103g" }
+        : { email: "guest.user@demo.com", password: "fvubeviub298g2" };
+
+    handleSubmit(credentials);
+  };
+
   useEffect(() => {
     if (!isPending && loginSuccess) {
       if (redirect) {
@@ -68,52 +77,78 @@ export function LoginForm() {
   }, [isPending, loginSuccess, redirect, router]);
 
   return (
-    <>
-      {isPending && <LoadingSpinner />}
-      <Card className="mx-auto max-w-lg w-full m-4">
-        <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your credentials below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4">
-            <AppForm
-              onSubmit={handleSubmit}
-              resolver={zodResolver(loginValidationSchema)}
-            >
+    <Card className="mx-auto max-w-lg w-full m-4">
+      <CardHeader>
+        <CardTitle className="text-2xl">Login</CardTitle>
+        <CardDescription>
+          Enter your credentials below to login to your account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-4">
+          <AppForm
+            onSubmit={handleSubmit}
+            resolver={zodResolver(loginValidationSchema)}
+          >
+            <AppInput
+              name="email"
+              label="Email"
+              type="email"
+              placeholder="Enter your email"
+              required
+            />
+
+            <div className="mb-4">
               <AppInput
-                name="email"
-                label="Email"
-                type="email"
-                placeholder="Enter your email"
+                label="Password"
+                name="password"
+                type="password"
+                placeholder="Enter your password"
                 required
               />
 
-              <div>
-                <AppInput
-                  label="Password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  required
-                />
-              </div>
+              <Link href="/forgot-password" className="underline text-sm">
+                Forgot Password?
+              </Link>
+            </div>
 
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
-            </AppForm>
+            <Button
+              type="submit"
+              className="w-full bg-primary"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                "Login"
+              )}
+            </Button>
+          </AppForm>
+
+          <div className="flex flex-wrap justify-around mt-4 gap-4">
+            <Button
+              type="button"
+              onClick={() => handleDemoLogin("user")}
+              className="w-full sm:w-auto bg-blue-500 hover:bg-blue-700"
+            >
+              Login as User
+            </Button>
+            <Button
+              type="button"
+              onClick={() => handleDemoLogin("admin")}
+              className="w-full sm:w-auto bg-red-500 hover:bg-red-700"
+            >
+              Login as Admin
+            </Button>
           </div>
-          <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="underline">
-              Sign up
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
-    </>
+        </div>
+        <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="underline">
+            Sign up
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

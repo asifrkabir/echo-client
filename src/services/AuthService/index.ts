@@ -3,7 +3,13 @@
 
 import axiosInstance from "@/lib/AxiosInstance";
 import { IApiResponse } from "@/types";
-import { ILoginResponse, IRegisterResponse } from "@/types/auth.type";
+import {
+  IChangePassword,
+  IForgotPassword,
+  ILoginResponse,
+  IRegisterResponse,
+  IResetPassword,
+} from "@/types/auth.type";
 import httpStatus from "http-status";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
@@ -28,11 +34,19 @@ export const registerUser = async (registrationData: FormData) => {
   } catch (error: any) {
     if (error.response) {
       const responseData = error.response.data as IApiResponse<null>;
+      const statusCode = error.response.status;
 
-      return responseData;
+      console.error(`API Error (${statusCode}):`, responseData);
+
+      return {
+        ...responseData,
+        statusCode,
+      };
     }
 
-    throw new Error(error.message || "Unknown error occurred");
+    throw new Error(
+      error.message || "Something went wrong. Please try again later."
+    );
   }
 };
 
@@ -52,11 +66,19 @@ export const loginUser = async (userData: FieldValues) => {
   } catch (error: any) {
     if (error.response) {
       const responseData = error.response.data as IApiResponse<null>;
+      const statusCode = error.response.status;
 
-      return responseData;
+      console.error(`API Error (${statusCode}):`, responseData);
+
+      return {
+        ...responseData,
+        statusCode,
+      };
     }
 
-    throw new Error(error.message || "Unknown error occurred");
+    throw new Error(
+      error.message || "Something went wrong. Please try again later."
+    );
   }
 };
 
@@ -99,6 +121,106 @@ export const getNewAccessToken = async () => {
 
     return res.data;
   } catch (error: any) {
-    throw new Error(error.message || "Failed to get new access token");
+    if (error.response) {
+      const responseData = error.response.data as IApiResponse<null>;
+      const statusCode = error.response.status;
+
+      console.error(`API Error (${statusCode}):`, responseData);
+
+      return {
+        ...responseData,
+        statusCode,
+      };
+    }
+
+    throw new Error(
+      error.message || "Something went wrong. Please try again later."
+    );
+  }
+};
+
+export const changePassword = async (payload: IChangePassword) => {
+  try {
+    const { data } = await axiosInstance.post<IApiResponse<null>>(
+      "/auth/change-password",
+      payload
+    );
+
+    return data;
+  } catch (error: any) {
+    if (error.response) {
+      const responseData = error.response.data as IApiResponse<null>;
+      const statusCode = error.response.status;
+
+      console.error(`API Error (${statusCode}):`, responseData);
+
+      return {
+        ...responseData,
+        statusCode,
+      };
+    }
+
+    throw new Error(
+      error.message || "Something went wrong. Please try again later."
+    );
+  }
+};
+
+export const forgotPassword = async (payload: IForgotPassword) => {
+  try {
+    const { data } = await axiosInstance.post<IApiResponse<null>>(
+      "/auth/forgot-password",
+      payload
+    );
+
+    return data;
+  } catch (error: any) {
+    if (error.response) {
+      const responseData = error.response.data as IApiResponse<null>;
+      const statusCode = error.response.status;
+
+      console.error(`API Error (${statusCode}):`, responseData);
+
+      return {
+        ...responseData,
+        statusCode,
+      };
+    }
+
+    throw new Error(
+      error.message || "Something went wrong. Please try again later."
+    );
+  }
+};
+
+export const resetPassword = async (resetPasswordData: IResetPassword) => {
+  try {
+    const { data } = await axiosInstance.post<IApiResponse<null>>(
+      "/auth/reset-password",
+      resetPasswordData.payload,
+      {
+        headers: {
+          Authorization: resetPasswordData.token,
+        },
+      }
+    );
+
+    return data;
+  } catch (error: any) {
+    if (error.response) {
+      const responseData = error.response.data as IApiResponse<null>;
+      const statusCode = error.response.status;
+
+      console.error(`API Error (${statusCode}):`, responseData);
+
+      return {
+        ...responseData,
+        statusCode,
+      };
+    }
+
+    throw new Error(
+      error.message || "Something went wrong. Please try again later."
+    );
   }
 };
