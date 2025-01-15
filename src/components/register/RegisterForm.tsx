@@ -77,7 +77,7 @@ export function RegisterForm() {
 
           toast.success("Registration successful!");
 
-          router.push("/user-dashboard/news-feed");
+          router.push("/news-feed");
         } else {
           toast.error(res.message);
         }

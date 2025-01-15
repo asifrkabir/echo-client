@@ -40,7 +40,7 @@ const PeopleYouMayKnow = () => {
         {peopleYouMayKnow.map((person) => (
           <Card
             key={person._id}
-            className="p-4 flex items-center justify-between"
+            className="p-4 flex flex-wrap items-center justify-between gap-2"
           >
             <div className="flex items-center space-x-3">
               <Avatar className="h-12 w-12">

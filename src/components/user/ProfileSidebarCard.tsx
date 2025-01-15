@@ -19,7 +19,7 @@ const ProfileSidebarCard = () => {
   }
 
   return (
-    <Card className="w-full p-4 flex items-center justify-between">
+    <Card className="w-full p-4 flex flex-wrap items-center justify-between gap-2">
       {/* User Avatar */}
       <div className="flex items-center space-x-3">
         <Avatar className="h-12 w-12">

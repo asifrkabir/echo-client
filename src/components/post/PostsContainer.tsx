@@ -46,7 +46,7 @@ const PostsContainer = ({ customParams }: IProps) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
       {/* Left Sidebar */}
-      <div className="lg:col-span-1 h-screen sticky lg:top-24">
+      <div className="hidden lg:block lg:col-span-1 h-screen sticky lg:top-24">
         <NewsFeedLeftSidebar />
       </div>
 
@@ -96,7 +96,7 @@ const PostsContainer = ({ customParams }: IProps) => {
       </div>
 
       {/* Right Sidebar */}
-      <div className="lg:col-span-1 h-screen sticky lg:top-24">
+      <div className="hidden lg:block lg:col-span-1 h-screen sticky lg:top-24">
         <NewsFeedRightSidebar />
       </div>
     </div>

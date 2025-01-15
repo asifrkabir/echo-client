@@ -90,7 +90,7 @@ const NavbarUser = () => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={`${dashboardUrl}/profile`} className="w-full">
+          <Link href={`/my-profile`} className="w-full">
             Profile
           </Link>
         </DropdownMenuItem>
