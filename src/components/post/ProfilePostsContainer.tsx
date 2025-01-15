@@ -89,7 +89,7 @@ const ProfilePostsContainer = ({
               onBottomReached={() => hasNextPage && fetchNextPage()}
             >
               {posts.map((post) => (
-                <PostCard key={post._id} post={post} />
+                <PostCard key={post._id} post={post} loggedInUser={user}  />
               ))}
             </InfiniteScrollContainer>
 
