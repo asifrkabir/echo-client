@@ -9,9 +9,6 @@ import {
   updateGroup,
 } from "@/services/GroupService";
 import { IApiResponse, IQueryParam } from "@/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import httpStatus from "http-status";
-import { toast } from "sonner";
 import {
   ICreateGroup,
   IGroup,
@@ -19,6 +16,9 @@ import {
   ILeaveGroup,
   IUpdateGroup,
 } from "@/types/group.type";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import httpStatus from "http-status";
+import { toast } from "sonner";
 
 export const getAllGroupsQuery = (params?: IQueryParam[]) => ({
   queryKey: ["GROUPS", params],
@@ -43,26 +43,8 @@ export const useGetGroupById = (id: string) => {
 };
 
 export const useCreateGroup = () => {
-  const queryClient = useQueryClient();
-
   return useMutation<any, Error, ICreateGroup>({
     mutationFn: createGroup,
-    onSuccess: (res: IApiResponse<IGroup>) => {
-      if (res.statusCode === httpStatus.CREATED) {
-        toast.success("Group created successfully");
-
-        queryClient.invalidateQueries({
-          queryKey: ["GROUPS"],
-        });
-      } else {
-        console.error(res);
-        toast.error(res.message || "Failed to create group. Please try again.");
-      }
-    },
-    onError: (error) => {
-      console.error(error);
-      toast.error(error.message || "Failed to create group. Please try again.");
-    },
   });
 };
 

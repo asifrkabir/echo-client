@@ -34,7 +34,9 @@ const ProfileSidebarCard = () => {
       </div>
 
       <Link href="/my-profile">
-        <Button size="sm">My Profile</Button>
+        <Button size="sm" variant="outline">
+          My Profile
+        </Button>
       </Link>
     </Card>
   );

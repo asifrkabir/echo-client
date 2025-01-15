@@ -57,7 +57,9 @@ const PeopleYouMayKnow = () => {
             </div>
 
             <Link href={`/profile/${person._id}`}>
-              <Button size="sm">View Profile</Button>
+              <Button size="sm" variant="outline">
+                View Profile
+              </Button>
             </Link>
           </Card>
         ))}

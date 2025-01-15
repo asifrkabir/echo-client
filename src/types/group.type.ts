@@ -1,6 +1,7 @@
 import { IUser } from "./user.type";
 
 export interface IGroup {
+  _id: string;
   name: string;
   description?: string;
   createdBy: IUser;
