@@ -14,7 +14,11 @@ import { useState } from "react";
 import { AddPostForm } from "./AddPostForm";
 import { CirclePlus } from "lucide-react";
 
-export function AddPostModal() {
+interface IProps {
+  groupId?: string;
+}
+
+export function AddPostModal({ groupId }: IProps) {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -38,7 +42,7 @@ export function AddPostModal() {
           </VisuallyHidden>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <AddPostForm closeModal={handleClose} />
+          <AddPostForm closeModal={handleClose} groupId={groupId} />
         </div>
       </DialogContent>
     </Dialog>

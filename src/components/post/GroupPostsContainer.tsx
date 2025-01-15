@@ -1,24 +1,22 @@
 "use client";
 
 import { useGetAllPostsForFeedInfinite } from "@/hooks/post.hook";
-import { IQueryParam, IUser } from "@/types";
+import { IQueryParam } from "@/types";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import NewsFeedLeftSidebar from "../NewsFeedSidebar/NewsFeedLeftSidebar";
-import NewsFeedRightSidebar from "../NewsFeedSidebar/NewsFeedRightSidebar";
 import InfiniteScrollContainer from "../Shared/InfiniteScrollContainer";
 import { AddPostModal } from "./AddPost/AddPostModal";
 import PostCard from "./PostCard/PostCard";
 import PostCardLoadingSkeleton from "./PostCardLoadingSkeleton";
 
 interface IProps {
-  user: IUser;
+  groupId: string;
   hideAddPostButton?: boolean;
   customParams?: IQueryParam[];
 }
 
-const ProfilePostsContainer = ({
-  user,
+const GroupPostsContainer = ({
+  groupId,
   hideAddPostButton,
   customParams,
 }: IProps) => {
@@ -28,11 +26,10 @@ const ProfilePostsContainer = ({
   const [params] = useState<IQueryParam[]>(() => {
     const defaultParams: IQueryParam[] = [
       {
-        name: "author",
-        value: user?._id ? user?._id!.toString() : user?.userId!.toString(),
+        name: "groupId",
+        value: groupId,
       },
       { name: "limit", value: 4 },
-      // { name: "sort", value: "-upvotes" },
     ];
 
     if (searchTerm) {
@@ -55,14 +52,9 @@ const ProfilePostsContainer = ({
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-      {/* Left Sidebar */}
-      <div className="lg:col-span-1 h-screen sticky lg:top-24">
-        <NewsFeedLeftSidebar />
-      </div>
-
       {/* Posts */}
-      <div className="lg:col-span-2 space-y-4">
-        {!hideAddPostButton && <AddPostModal />}
+      <div className="lg:col-span-4 space-y-4">
+        {!hideAddPostButton && <AddPostModal groupId={groupId} />}
 
         {isLoading ? (
           <div className="grid gap-4 grid-cols-1">
@@ -104,13 +96,8 @@ const ProfilePostsContainer = ({
           </>
         )}
       </div>
-
-      {/* Right Sidebar */}
-      <div className="lg:col-span-1 h-screen sticky lg:top-24">
-        <NewsFeedRightSidebar />
-      </div>
     </div>
   );
 };
 
-export default ProfilePostsContainer;
+export default GroupPostsContainer;

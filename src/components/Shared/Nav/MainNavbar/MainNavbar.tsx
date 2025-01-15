@@ -23,6 +23,11 @@ export default function MainNavbar() {
                 Newsfeed
               </NavigationMenuLink>
             </Link>
+            <Link href="/groups" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Groups
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

@@ -19,9 +19,10 @@ import { toast } from "sonner";
 
 interface IProps {
   closeModal: () => void;
+  groupId?: string;
 }
 
-export function AddPostForm({ closeModal }: IProps) {
+export function AddPostForm({ closeModal, groupId }: IProps) {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
 
@@ -58,6 +59,7 @@ export function AddPostForm({ closeModal }: IProps) {
 
     const postData = {
       ...data,
+      groupId: groupId,
     };
 
     formData.append("data", JSON.stringify(postData));

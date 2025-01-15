@@ -33,6 +33,9 @@ export default function MainMobileNavbar() {
           <nav className="flex flex-col gap-3 lg:gap-4 mt-6">
             <Link href="/news-feed">Newsfeed</Link>
           </nav>
+          <nav className="flex flex-col gap-3 lg:gap-4 mt-6">
+            <Link href="/groups">Groups</Link>
+          </nav>
         </SheetContent>
       </Sheet>
     </div>

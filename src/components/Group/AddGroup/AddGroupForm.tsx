@@ -37,6 +37,9 @@ export function AddGroupForm({ closeModal }: IProps) {
           queryClient.invalidateQueries({
             queryKey: ["GROUPS"],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["GROUPS_FOR_USER"],
+          });
 
           closeModal();
         } else {

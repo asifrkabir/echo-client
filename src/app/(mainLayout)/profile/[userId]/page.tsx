@@ -46,7 +46,7 @@ const ProfilePage = () => {
       </div>
       <div className="flex flex-col flex-1 justify-center rounded-lg gap-4">
         <UserProfileCard user={userData.data} />
-        <ProfilePostsContainer user={userData.data} />
+        <ProfilePostsContainer user={userData.data} hideAddPostButton={true} />
       </div>
     </main>
   );
