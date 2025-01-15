@@ -117,6 +117,9 @@ const CheckoutForm = ({ postId, onPaymentSuccess }: IProps) => {
               queryClient.invalidateQueries({
                 queryKey: ["ALL_POSTS_NEWSFEED"],
               });
+              queryClient.invalidateQueries({
+                queryKey: ["POSTS_FEED"],
+              });
               onPaymentSuccess();
             } else {
               toast.error(res.message);
@@ -138,8 +141,8 @@ const CheckoutForm = ({ postId, onPaymentSuccess }: IProps) => {
         <h3 className="text-xl font-semibold text-center mb-4">
           Complete Your Payment
         </h3>
-        <h5 className="text-lg text-blue-600 text-center mb-4">
-          Amount to Pay: Tk. 100
+        <h5 className="text-lg text-violet-600 text-center mb-4">
+          Amount to Pay: $ 100
         </h5>
       </CardHeader>
       <CardContent>
@@ -166,7 +169,7 @@ const CheckoutForm = ({ postId, onPaymentSuccess }: IProps) => {
           <div className="text-center">
             <Button
               type="submit"
-              className="w-full mt-4 bg-blue-600 text-white hover:bg-blue-700 transition duration-300"
+              className="w-full mt-4 transition duration-300"
               disabled={!stripe || !clientSecret || loading}
             >
               {loading ? (
