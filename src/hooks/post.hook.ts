@@ -6,6 +6,7 @@ import {
   getAllPostsForFollowingNewsfeed,
   getAllPostsForNewsfeed,
   getPostByIdForUser,
+  getTotalPosts,
   togglePostPublish,
   updatePost,
 } from "@/services/PostService";
@@ -140,5 +141,16 @@ export const useGetAllPostsForFollowingNewsfeedInfinite = (
 ) => {
   return useInfiniteQuery({
     ...useGetAllPostsForFollowingNewsfeedInfiniteQuery(params),
+  });
+};
+
+export const getTotalPostsQuery = (params?: IQueryParam[]) => ({
+  queryKey: ["TOTAL_POSTS", params],
+  queryFn: async () => await getTotalPosts(params),
+});
+
+export const useGetTotalPosts = (params?: IQueryParam[]) => {
+  return useQuery({
+    ...getTotalPostsQuery(params),
   });
 };

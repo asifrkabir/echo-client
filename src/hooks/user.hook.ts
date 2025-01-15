@@ -2,6 +2,7 @@
 import {
   deleteUser,
   getAllUsers,
+  getTotalUsers,
   getUserById,
   updateUser,
 } from "@/services/UserService";
@@ -50,5 +51,16 @@ export const useDeleteUser = () => {
     onError: (error) => {
       return error;
     },
+  });
+};
+
+export const getTotalUsersQuery = (params?: IQueryParam[]) => ({
+  queryKey: ["TOTAL_USERS", params],
+  queryFn: async () => await getTotalUsers(params),
+});
+
+export const useGetTotalUsers = (params?: IQueryParam[]) => {
+  return useQuery({
+    ...getTotalUsersQuery(params),
   });
 };

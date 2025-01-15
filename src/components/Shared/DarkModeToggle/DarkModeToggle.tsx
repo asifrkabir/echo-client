@@ -21,7 +21,7 @@ export function DarkModeToggle() {
   };
 
   return (
-    <Button onClick={toggleTheme} size="icon" className="bg-transparent">
+    <Button onClick={toggleTheme} size="icon">
       {/* Sun Icon for light theme */}
       <Sun
         className={`h-[1.2rem] w-[1.2rem] transition-transform ${
