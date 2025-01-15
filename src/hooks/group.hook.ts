@@ -4,6 +4,7 @@ import {
   deleteGroup,
   getAllGroups,
   getGroupById,
+  getGroupsForUser,
   joinGroup,
   leaveGroup,
   updateGroup,
@@ -145,5 +146,16 @@ export const useLeaveGroup = () => {
       console.error(error);
       toast.error(error.message || "Failed to leave group. Please try again.");
     },
+  });
+};
+
+export const getGroupsForUserQuery = (params?: IQueryParam[]) => ({
+  queryKey: ["GROUPS_FOR_USER", params],
+  queryFn: async () => await getGroupsForUser(params),
+});
+
+export const useGetGroupsForUser = (params?: IQueryParam[]) => {
+  return useQuery({
+    ...getGroupsForUserQuery(params),
   });
 };
