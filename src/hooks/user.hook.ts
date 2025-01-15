@@ -6,8 +6,10 @@ import {
   getUserById,
   updateUser,
 } from "@/services/UserService";
-import { IQueryParam } from "@/types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { IApiResponse, IQueryParam, IUser } from "@/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import httpStatus from "http-status";
+import { toast } from "sonner";
 
 export const useGetUserById = (userId: string) => {
   return useQuery({
@@ -42,14 +44,25 @@ export const useGetAllUsers = (params?: IQueryParam[]) => {
 };
 
 export const useDeleteUser = () => {
-  return useMutation<any, Error, any>({
-    mutationKey: ["DELETE_USER"],
-    mutationFn: async (userId) => await deleteUser(userId),
-    onSuccess: (data) => {
-      return data;
+  const queryClient = useQueryClient();
+
+  return useMutation<any, Error, string>({
+    mutationFn: deleteUser,
+    onSuccess: (res: IApiResponse<IUser>) => {
+      if (res.statusCode === httpStatus.OK) {
+        toast.success("User deleted successfully");
+
+        queryClient.invalidateQueries({
+          queryKey: ["GET_ALL_USERS"],
+        });
+      } else {
+        console.error(res);
+        toast.error(res.message || "Failed to delete User. Please try again.");
+      }
     },
     onError: (error) => {
-      return error;
+      console.error(error);
+      toast.error(error.message || "Failed to delete User. Please try again.");
     },
   });
 };

@@ -6,17 +6,10 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 import {
-  Boxes,
   CircleDollarSign,
-  CircleUser,
-  Gem,
   LayoutDashboard,
-  ListTodo,
-  Logs,
   type LucideIcon,
-  Mail,
   Newspaper,
-  Store,
   Users,
 } from "lucide-react";
 import DashboardSidebarMenuItemDropdown from "../DashboardSidebarMenuItemDropdown";
@@ -47,49 +40,14 @@ const items: IMenuItem[] = [
     icon: LayoutDashboard,
   },
   {
-    title: "Profile",
-    url: "/admin-dashboard/profile",
-    icon: CircleUser,
-  },
-  {
-    title: "Product Categories",
-    url: "/admin-dashboard/product-categories",
-    icon: ListTodo,
-  },
-  {
     title: "Users",
     url: "/admin-dashboard/users",
     icon: Users,
   },
   {
-    title: "Shops",
-    url: "/admin-dashboard/shops",
-    icon: Store,
-  },
-  {
-    title: "Products",
-    url: "/admin-dashboard/products",
-    icon: Boxes,
-  },
-  {
     title: "Payments",
     url: "/admin-dashboard/payments",
     icon: CircleDollarSign,
-  },
-  {
-    title: "Orders",
-    url: "/admin-dashboard/orders",
-    icon: Logs,
-  },
-  {
-    title: "Coupons",
-    url: "/admin-dashboard/coupons",
-    icon: Gem,
-  },
-  {
-    title: "Newsletter",
-    url: "/admin-dashboard/newsletter",
-    icon: Mail,
   },
 ];
 
