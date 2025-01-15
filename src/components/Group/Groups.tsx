@@ -2,7 +2,6 @@
 
 import { useGetAllGroups } from "@/hooks/group.hook";
 import { IQueryParam } from "@/types";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Pagination from "../Shared/Pagination";
 import { Skeleton } from "../ui/skeleton";
@@ -13,8 +12,6 @@ interface IProps {
 }
 
 const Groups = ({ customParams }: IProps) => {
-  const searchParams = useSearchParams();
-
   const [params, setParams] = useState<IQueryParam[]>(() => {
     const defaultParams: IQueryParam[] = [
       { name: "limit", value: 16 },
